@@ -23,6 +23,6 @@ pipeline {
         sh 'npm run build'
         sh 'docker build -t ${image-name}:${tag_image} .' 
       }
-    } 
-  } 
+    }
+  }
 }
