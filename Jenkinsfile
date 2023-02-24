@@ -3,7 +3,7 @@ pipeline {
   
   tools {
     nodejs 'NodeJS'
-    docker 'Docker123'
+    Docker 'Docker123'
   }
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'nombre del contenedor.')
