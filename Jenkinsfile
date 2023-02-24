@@ -24,6 +24,7 @@ pipeline {
   }
   tools {
     nodejs 'NodeJS'
+    Docker 'Docker'
   }
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'nombre del contenedor.')
