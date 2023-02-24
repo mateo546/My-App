@@ -29,5 +29,6 @@ pipeline {
     string(name: 'container_name', defaultValue: 'Poke-App', description: 'nombre del contenedor.')
     string(name: 'image_name', defaultValue: 'pagina_img', description: 'nombre de la imagen de docker.')
     string(name: 'tag_image', defaultValue: 'lts', description: 'tag de la imagen de la pagina.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
 }
