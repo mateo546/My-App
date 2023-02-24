@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  stages {
     
   tools {
     nodejs 'NodeJS'
@@ -11,7 +10,8 @@ pipeline {
     string(name: 'tag_image', defaultValue: 'lts', description: 'tag de la imagen de la pagina.')
     string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
-    
+  
+  stages {
     stage('Install') {
       steps {
         git(branch: 'master', url: 'https://github.com/mateo546/My-App.git')
