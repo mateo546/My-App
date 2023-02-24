@@ -10,7 +10,7 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'docker build -t - pokeapp --file dockerfile .'
+        sh 'docker build -t pokeapp --file dockerfile .'
       }
     }
 
