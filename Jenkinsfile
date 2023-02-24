@@ -23,12 +23,12 @@ pipeline {
     stage('build') {
       steps {
         sh 'npm run build'
-        sh 'docker build -t ${image-name}:${tag_image} .'
+        sh "docker build -t ${image-name}:${tag_image} ."
       }
     }
     stage('deploy') {
       steps {
-        sh docker run -d -p 8080 --name ${container_name} ${image_name} ${tag_image}"
+        sh "docker run -d -p 8080 --name ${container_name} ${image_name} ${tag_image}"
         
       }
     } 
