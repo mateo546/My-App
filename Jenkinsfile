@@ -5,12 +5,7 @@ pipeline {
     nodejs 'NodeJS'
     dockerTool 'Docker1'
   }
-  parameters {
-    string(name: 'container_name', defaultValue: 'pagina_web', description: 'nombre del contenedor.')
-    string(name: 'image_name', defaultValue: 'pagina_img', description: 'nombre de la imagen de docker.')
-    string(name: 'tag_image', defaultValue: 'lts', description: 'tag de la imagen de la pagina.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
-  }
+  
   stages {
     stage('Install') {
       steps {
@@ -22,7 +17,7 @@ pipeline {
 
     stage('build') {
       steps {
-        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
+        sh "docker build -t - pokeapp --file dockerfile ."
       }
     }
 
