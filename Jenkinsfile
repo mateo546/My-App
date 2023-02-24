@@ -1,6 +1,9 @@
 pipeline {
   agent any
-  }
+   
+  tools {
+    nodejs "NodeJS"
+  }  
   
   parameters {
     string(name: 'container_name', defaultValue: 'Poke-App', description: 'nombre del contenedor.')
