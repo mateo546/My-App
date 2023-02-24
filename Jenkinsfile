@@ -1,5 +1,16 @@
 pipeline {
   agent any
+  
+  tools {
+    nodejs 'NodeJS'
+    docker 'Docker'
+  }
+  parameters {
+    string(name: 'container_name', defaultValue: 'pagina_web', description: 'nombre del contenedor.')
+    string(name: 'image_name', defaultValue: 'pagina_img', description: 'nombre de la imagen de docker.')
+    string(name: 'tag_image', defaultValue: 'lts', description: 'tag de la imagen de la pagina.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
+  }
   stages {
     stage('Install') {
       steps {
@@ -20,16 +31,5 @@ pipeline {
         sh "/usr/local/bin/docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
       }
     }
-
   }
-  tools {
-    nodejs 'NodeJS'
-    Docker 'Docker'
-  }
-  parameters {
-    string(name: 'container_name', defaultValue: 'pagina_web', description: 'nombre del contenedor.')
-    string(name: 'image_name', defaultValue: 'pagina_img', description: 'nombre de la imagen de docker.')
-    string(name: 'tag_image', defaultValue: 'lts', description: 'tag de la imagen de la pagina.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
-  }
-}
+} 
