@@ -11,7 +11,6 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'npm run ng build'
         sh "docker build -t ${image-name}:${tag_image} --file dockerfile ."
       }
     }
