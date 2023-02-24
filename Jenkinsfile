@@ -6,6 +6,7 @@ pipeline {
         git(branch: 'master', url: 'https://github.com/mateo546/My-App.git')
         sh 'npm install'
         sh 'npm install -g @angular/cli'
+        sh 'ng'
         sh 'npm run ng serve'
         sh 'npm run ng build'
       }
