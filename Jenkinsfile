@@ -6,7 +6,7 @@ pipeline {
     dockerTool 'Docker1'
   }
   
-   parameters {
+ parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pagina_img', description: 'Nombre de la imagene docker.')
     string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
@@ -26,10 +26,4 @@ pipeline {
         sh 'docker build -t pokeapp --file dockerfile .'
      }
    }
-
-   stage('deploy') {
-      steps {
-         sh "docker run -d -p 80:80 --name ${container_name} ${image_name}:${tag_image}"
-      }
-   }
-}   
+ }
