@@ -10,7 +10,7 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'docker build -t ${image_name} ${tag_image} -- file dockerfile .'
+        sh 'docker build -t ${image_name} -- file dockerfile .'
       }
     }
 
