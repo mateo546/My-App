@@ -2,8 +2,8 @@ pipeline {
   agent any
   
   tools {
-    nodejs "Node"
-    dockertool "Docker1"
+    Nodejs "Node"
+    dockerTool "Docker1"
   }
   
   parameters {
