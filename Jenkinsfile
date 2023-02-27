@@ -30,6 +30,6 @@ pipeline {
    stage('deploy') {
       steps {
          sh "docker run -d -p 80:80 --name ${container_name} ${image_name}:${tag_image}"
-     }
+      }
    }
- } 
+}   
