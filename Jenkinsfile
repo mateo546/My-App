@@ -29,7 +29,7 @@ pipeline {
 
    stage('deploy') {
       steps {
-        sh 'docker run -d -it -p 80:80 pokeapp .'
+         sh "docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
      }
    }
  } 
