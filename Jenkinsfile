@@ -14,7 +14,7 @@ pipeline {
   }
   
  stages {
-    stage('Install') {
+   stage('Install') {
       steps {
         git(branch: 'master', url: 'https://github.com/mateo546/My-App.git')
         sh 'npm install'
@@ -22,8 +22,8 @@ pipeline {
    }
 
    stage('build') {
-      steps {
-        sh 'docker build -t pokeapp --file dockerfile .'
-     }
-   }
- }
+     steps {
+       sh 'docker build -t pokeapp --file dockerfile .'
+    }
+  }
+}
