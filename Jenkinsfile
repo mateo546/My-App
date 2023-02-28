@@ -1,5 +1,10 @@
 pipeline {
   agent any
+  
+  enviroment {
+    DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+  }
+  
   stages {
     stage('Install') {
       steps {
