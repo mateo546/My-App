@@ -16,6 +16,7 @@ pipeline {
 
     stage('deploy') {
       steps {
+        sh 'docker rm -f pokeapp '
         sh 'docker run -d -it -p 80:80 pokeapp'
       }
     }
