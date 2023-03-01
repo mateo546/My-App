@@ -10,7 +10,7 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'docker build -t ${image_name} --file dockerfile .'
+        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
       }
     }
 
@@ -38,6 +38,7 @@ pipeline {
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
     string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
 }
