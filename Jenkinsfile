@@ -6,6 +6,9 @@ pipeline {
     dockerTool 'Docker1'
   }
   
+  parameters {
+    string(name: 'container_name', defaultValue: 'pagina-web', description: 'Nombre del contenedor de docker.')
+  
   stages {
     stage('Install') {
       steps {
@@ -22,8 +25,8 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sh 'docker rm -f 54fa6e88cb7afac7501283e308f85957e62dd3aa1f867c988e3c11688fb75139'
-        sh 'docker run -d -it -p 80:80 pokeapp'
+        sh 'docker rm -f de6c602d980326670f3b18af1601f1ac9c7d0aed076812a56e7ef49566c8b778'
+        sh 'docker run -d -it -p 80:80 pokeapp --name ${container_name}'
       }
     }
   }
