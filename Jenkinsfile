@@ -10,14 +10,13 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'docker build -t ${image_name} --file dockerfile .'
+        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
       }
     }
 
     stage('deploy') {
-      steps {
-        sh "docker rm –f de6c602d980326670f3b18af1601f1ac9c7d0aed076812a56e7ef49566c8b778 " // Elimina el contenedor si existe
-        sh 'docker run -d -it -p 80:80 pokeapp .'
+      steps {  
+      sh "docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
       }
     }
 
