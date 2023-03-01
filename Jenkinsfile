@@ -26,6 +26,6 @@ pipeline {
     dockerTool 'Docker1'
   }
   parameters {
-    string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
+    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
   }
 }
