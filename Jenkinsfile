@@ -13,25 +13,24 @@ pipeline {
         sh 'docker build -t pokeapp --file dockerfile .'
       }
     }
-    
-    stage ('Login') {
+
+    stage('Login') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password stdin' 
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password stdin'
       }
     }
-    
-    stage ('Push') {
+
+    stage('Push') {
       steps {
         sh 'docker push pokeapp'
       }
     }
-  }
 
+  }
   tools {
     nodejs 'NodeJS'
     dockerTool 'Docker1'
   }
-  
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
   }
