@@ -22,7 +22,8 @@ pipeline {
 
     stage('Push') {
       steps {
-        sh 'docker push pokeapp'
+         sh "docker tag ${image_name}:${tag_image} mateocolombo/pokeapp:${tag_image}"
+        sh "docker push mateocolombo/pokeapp:${tag_image}"'
       }
     }
 
@@ -37,7 +38,7 @@ pipeline {
   
   parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
-    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'image_name', defaultValue: '1.17.1-alpine', description: 'Nombre de la imagen de docker.')
     string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
     string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
