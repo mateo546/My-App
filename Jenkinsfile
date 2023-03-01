@@ -42,10 +42,5 @@ pipeline {
         sh 'docker run -d -it -p 80:80 pokeapp'
       }
     }
-
-  }
-  tools {
-    nodejs 'NodeJS'
-    dockerTool 'Docker1'
   }
 }
