@@ -1,8 +1,7 @@
 pipeline {
   agent any
 
-  enviroment {
-    DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
+  enviroment { DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
   }
   
   tools {
