@@ -16,7 +16,7 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sh "docker run -d -it -p 80:80  --name ${container_name} pokeapp ."
+        sh "docker run -d -it -p 80:80 pokeapp ."
       }
     }
 
