@@ -16,6 +16,7 @@ pipeline {
 
     stage('deploy') {
       steps {
+        sh "docker rm -f 751f5e6ea0bd5983bcef7320200ab1aa8b25f738dc9d65d1bcf6d66d59802627" // Elimina el contenedor si existe
         sh "docker run -d -it -p 80:80 pokeapp ."
       }
     }
