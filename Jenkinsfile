@@ -34,4 +34,9 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
   }
+  
+  parameters {
+    string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
+    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
 }
