@@ -1,6 +1,11 @@
 pipeline {
   agent any
   
+  tools {
+    nodejs 'NodeJS'
+    dockerTool 'Docker1'
+  }
+
   enviroment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub')
   }
