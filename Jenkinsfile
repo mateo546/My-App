@@ -27,7 +27,6 @@ pipeline {
     dockerTool 'Docker1'
   }
   parameters {
-    parameters {
     string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagene docker.')
     string(name: 'tag_image', defaultValue: '1.17.1-alpine', description: 'Tag de la imagen de la página.')
