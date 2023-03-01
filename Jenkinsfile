@@ -13,7 +13,7 @@ pipeline {
   stages {
     stage('install') {
       steps {
-        git branch: 'main', url: 'https://github.com/mateo546/My-App.git'
+        git branch: 'master', url: 'https://github.com/mateo546/My-App.git'
         sh 'npm install'
       }
     }
