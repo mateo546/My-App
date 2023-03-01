@@ -15,9 +15,9 @@ pipeline {
     }
 
     stage('deploy') {
-      steps {  
-      sh "docker rm -f ${container_name}" // Elimina el contenedor si existe  
-      sh "docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
+      steps {
+        sh "docker rm -f ${container_name}" // Elimina el contenedor si existe
+        sh "docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
       }
     }
 
