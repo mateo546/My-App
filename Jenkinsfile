@@ -14,9 +14,9 @@ pipeline {
       }
     }
     
-    stage ('Push') {
+    stage('build') {
       steps {
-        sh 'docker push pokeapp'
+        sh 'docker build -t pokeapp --file dockerfile .'
       }
     }
 
