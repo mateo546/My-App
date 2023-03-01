@@ -1,8 +1,5 @@
 pipeline {
   agent any
-
-  enviroment { DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
-  }
   
   tools {
     nodejs 'NodeJS'
