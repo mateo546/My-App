@@ -13,14 +13,20 @@ pipeline {
         sh 'docker build -t pokeapp --file dockerfile .'
       }
     }
-
-    stage('deploy') {
+    
+    stage ('Login') {
       steps {
-        sh "docker run -d -it -p 80:80 pokeapp ."
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password stdin' 
       }
     }
-
+    
+    stage ('Push') {
+      steps {
+        sh 'docker push pokeapp'
+      }
+    }
   }
+
   tools {
     nodejs 'NodeJS'
     dockerTool 'Docker1'
