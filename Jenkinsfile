@@ -10,7 +10,7 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'docker build -t pokeapp --file dockerfile .'
+        sh 'docker build -t ${image_name} --file dockerfile .'
       }
     }
 
@@ -27,6 +27,10 @@ pipeline {
     dockerTool 'Docker1'
   }
   parameters {
-    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
+    parameters {
+    string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
+    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagene docker.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
+  }
   }
 }
