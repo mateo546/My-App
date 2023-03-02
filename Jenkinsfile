@@ -14,18 +14,12 @@ pipeline {
       }
     }
     
-    stage('Azure App service deploysteps') {
+    stage('Azure App Service deploy') {
       steps {
-        // Authenticate with Azure using service principal credentials
-        withCredentials([azureServicePrincipal('azureServicePrincipal')]) {
-          // Install the Azure CLI
-          sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash'
-          // Login to Azure using service principal credentials
-          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
-          // Pull the Docker image from DockerHUB and tag it
-          // Push the Docker image to the Azure App Service
-          sh 'az webapp create -g MyResourceGroup -p MyPlan -n Pokeapp-web -i mateocolombo/pokeapp:1.17.1-alpine'
-        }
+        withcredentials([azureServicePrincipal('azureServicePrincipal')]) {
+          sh 'curl -sL https//aka.ms/InstallAzureCLIDeb | sudo bash'
+          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
+          sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n Pokeapp-web -i mateocolombo/pokeapp:1.17.1-alpine'
  
   tools {
     nodejs 'NodeJS'
