@@ -45,7 +45,7 @@ pipeline {
     
     stage('Azure App Service deploy') {
       steps {
-        withCredentials([azureserviceprincipal('azureserviceprincipal')]) 
+        withCredentials([azureserviceprincipal('azure-service-principal')]) 
         sh "az login --service-principal -u 1c6914e6-5a2b-4c76-b99a-68614314529f -p zd.8Q~Q_OV6KR-BOcHF~SGTlmmpFW58fvcyKXa2Y --tenant 9297550c-fa07-4acd-ade0-49b8c437c2df"
         sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest010 -i mateocolombo/pokeapp:1.17.1-alpine -u azuredevops_dev'  
         }
