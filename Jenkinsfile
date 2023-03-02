@@ -14,8 +14,8 @@ pipeline {
       }
     }
     
-    stage('Deploy to Azure App Service') {
-      steps {
+    stage('Azure App service deploysteps') {
+      steps {
         // Authenticate with Azure using service principal credentials
         withCredentials([azureServicePrincipal('azureServicePrincipal')]) {
           // Install the Azure CLI
