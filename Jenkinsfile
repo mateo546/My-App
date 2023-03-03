@@ -47,7 +47,7 @@ pipeline {
       steps {
          withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
             sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'        
-            sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest011 -i mateocolombo/pokeapp:1.17.1-alpine'
+            sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest011 -i mateocolombo/pokeapp:1.17.1-alpine'
          }
       }
     }
