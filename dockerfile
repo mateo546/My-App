@@ -17,3 +17,4 @@ RUN npm run build --prod
 FROM nginx:1.17.1-alpine
 #Si estas utilizando otra aplicacion cambia PokeApp por el nombre de tu app
 COPY --from=build-step /app/dist/PokeApp /usr/share/nginx/html
+EXPOSE 80
