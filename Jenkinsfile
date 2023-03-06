@@ -34,12 +34,18 @@ pipeline {
     stage('Image Pull') {
       steps {
         sh
-
-    stage('deploy') {
+      }
+    }
+    
+    stage('Azure App Service deploy') {
       steps {
-        sh "docker rm -f  ${container_name}" // Elimina el contenedor si existe
-        sh "docker run -d -p ${container_port}:80 --name ${container_name} ${image_name}:${tag_image}"
+         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
+           sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | bash'
+           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'        
+           sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:1.17.1-alpine'
+         }
       }
     }
   }
 }
+
