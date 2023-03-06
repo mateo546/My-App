@@ -5,6 +5,11 @@ pipeline {
     nodejs 'NodeJS'
     dockerTool 'Docker1'
   }
+  
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
+  }
+  
   parameters {
     string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagene docker.')
