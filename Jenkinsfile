@@ -24,12 +24,16 @@ pipeline {
         sh 'npm install'
       }
     }
-
-    stage('build') {
+    
+    stage('Login') {
       steps {
-        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_MxjKQobzyCYEwyBEeeONWao_psU'
       }
     }
+    
+    stage('Image Pull') {
+      steps {
+        sh
 
     stage('deploy') {
       steps {
