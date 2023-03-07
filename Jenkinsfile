@@ -53,4 +53,10 @@ pipeline {
       }
     }
   }
+  
+  post {
+    success {
+        build job: '  My-App/master'
+    }
+  }
 }
