@@ -33,7 +33,7 @@ pipeline {
     
     stage('Image Pull') {
       steps {
-        sh
+        sh 'docker pull  mateocolombo/pokeapp:lts'
       }
     }
     
