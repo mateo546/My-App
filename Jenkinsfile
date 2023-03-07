@@ -46,7 +46,7 @@ pipeline {
   
   post {
     success {
-        build job: '  My-App/master'
+        build job: 'master'
     }
   }
 }
