@@ -42,7 +42,7 @@ pipeline {
          withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
            sh 'curl -sL https://aka.ms/InstallAzureCLIDeb | bash'
            sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'        
-           sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:1.17.1-alpine'
+           sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:lts'
          }
       }
     }
