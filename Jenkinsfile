@@ -31,7 +31,7 @@ pipeline {
     
     stage('Image Pull') {
       steps {
-        sh 'docker pull  ${params.image_name}:${params.tag_image}'
+        sh 'docker pull  mateocolombo/pokeapp:${params.tag_image}'
       }
     }
     
