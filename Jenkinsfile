@@ -1,19 +1,20 @@
 pipeline {
   agent any
   
-  tools {
+   tools {
     nodejs 'NodeJS'
     dockerTool 'Docker1'
   }
+  
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
   }
   
   parameters {
     string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
-    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagene docker.')
     string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor.')
   }
   
   stages {
@@ -23,30 +24,26 @@ pipeline {
         sh 'npm install'
       }
     }
-
-    stage('build') {
-      steps {
-        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
-      }
-    }
-
+    
     stage('Login') {
       steps {
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_MxjKQobzyCYEwyBEeeONWao_psU'
       }
     }
-
-    stage('Push') {
+    
+    stage('Image Pull') {
       steps {
-        sh "docker tag ${image_name}:${tag_image} mateocolombo/pokeapp:${tag_image}"
-        sh "docker push mateocolombo/pokeapp:${tag_image}"
+        sh 'docker pull  mateocolombo/pokeapp:lts'
       }
     }
-  }
-  
-  post {
-    success {
-        build job: 'master'
+    
+    stage('Azure App Service deploy') {
+      steps {
+         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
+           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'        
+           sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:lts'
+         }
+      }
     }
   }
 }
