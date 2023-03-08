@@ -38,8 +38,8 @@ pipeline {
   }
   post {
     success {
-      build 'testing', parameters: [string(name: 'image_name', value: "mateocolombo/pokeapp"),
-                                                                                              string(name: 'tag_image', value:"${params.tag_image}")]
+      build job: 'testing', parameters: [string(name: 'image_name', value: "mateocolombo/pokeapp"),
+                                                                                              string(name: 'tag_image', value:"${params.tag_image}")])
     }
 
   }
