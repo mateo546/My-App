@@ -43,5 +43,10 @@ pipeline {
       }
     }
   }
+    post {
+    success {
+        build job: 'testing'
+    }
+  }
 }
   
