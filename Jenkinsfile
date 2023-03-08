@@ -24,7 +24,7 @@ pipeline {
       steps {
         sh "docker tag ${image_name}:${tag_image} mateocolombo/pokeapp:${tag_image}"
         sh "docker push mateocolombo/pokeapp:${tag_image}"
-        sh "docker rmi pokeapp:lts
+        sh "docker rmi pokeapp:lts"
       }
     }
 
