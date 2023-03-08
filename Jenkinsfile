@@ -1,5 +1,21 @@
 pipeline {
   agent any
+  
+  tools {
+    nodejs 'NodeJS'
+    dockerTool 'Docker1'
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
+  }
+  
+  parameters {
+    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
+    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
+  }
+  
   stages {
     stage('install') {
       steps {
@@ -22,25 +38,16 @@ pipeline {
 
     stage('Push') {
       steps {
-         sh "docker tag ${image_name}:${tag_image} mateocolombo/pokeapp:${tag_image}"
+        sh "docker tag ${image_name}:${tag_image} mateocolombo/pokeapp:${tag_image}"
         sh "docker push mateocolombo/pokeapp:${tag_image}"
       }
     }
-
-  }
-  tools {
-    nodejs 'NodeJS'
-    dockerTool 'Docker1'
-  }
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
   }
   
-  parameters {
-    string(name: 'container_name', defaultValue: 'pagina_web', description: 'Nombre del contenedor de docker.')
-    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
-    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
+  post {
+    success {
+        build job: 'testing'
+    }
   }
 }
   
