@@ -42,11 +42,10 @@ pipeline {
          }
       }
     }
-  }
-  
-  post {
-     success {
-        build job: 'master'
-     }
+    stage('Trigger testing branch') {
+      steps {
+        build(job: 'testing', parameters: [string(name: 'image_name', value: "mateocolombo/pokeapp"), string(name: 'tag_image', value:"${params.tag_image}")])
+      }
+    }
   }
 }
