@@ -30,7 +30,7 @@ pipeline {
     
     stage('Image Pull') {
       steps {
-        sh 'docker pull  mateocolombo/pokeapp:${params.tag_image}'
+        sh "docker pull  mateocolombo/pokeapp:${params.tag_image}"
       }
     }
     
@@ -38,14 +38,15 @@ pipeline {
       steps {
          withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
            sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'        
-           sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:${params.tag_image}'
+           sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:${params.tag_image}"
          }
       }
     }
-    stage('Trigger master branch') {
-      steps {
-        build(job: 'master', parameters: [string(name: 'image_name', value: "mateocolombo/pokeapp"), string(name: 'tag_image', value:"${params.tag_image}")])
-      }
-    }
+  }
+  post {
+        success {
+            build job: 'testing', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
+        }
   }
 }
+
