@@ -16,15 +16,15 @@ pipeline {
 
     stage('Image Pull') {
       steps {
-        sh 'docker pull  mateocolombo/pokeapp:lts'
+        sh "docker pull  mateocolombo/pokeapp:${params.tag_image}"
       }
     }
 
     stage('Azure App Service deploy') {
       steps {
         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
-          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
-          sh 'az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest005p -i mateocolombo/pokeapp:lts'
+          sh "az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}"
+          sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest005p -i mateocolombo/pokeapp:${params.tag_image}"
         }
 
       }
