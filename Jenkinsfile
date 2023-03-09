@@ -1,5 +1,21 @@
 pipeline {
   agent any
+  
+    tools {
+    nodejs 'NodeJS'
+    dockerTool 'Docker1'
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
+  }
+
+  parameters {
+    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
+    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
+  }
+  
   stages {
     stage('install') {
       steps {
@@ -27,25 +43,6 @@ pipeline {
         sh "docker rmi ${image_name}:${tag_image}"
       }
     }
-    stage('Trigger testing branch') {
-      steps {
-        build(job: 'testing', parameters: [string(name: 'image_name', value: "mateocolombo/pokeapp"), string(name: 'tag_image', value:"${parameters.tag_image}")])
-      }
-    }
   }
   
-  tools {
-    nodejs 'NodeJS'
-    dockerTool 'Docker1'
-  }
-  environment {
-    DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
-  }
-
-  parameters {
-    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
-    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
-    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
-  }
-}
+ 
