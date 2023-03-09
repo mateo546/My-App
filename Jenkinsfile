@@ -27,8 +27,13 @@ pipeline {
         sh "docker rmi ${image_name}:${tag_image}"
       }
     }
-
+    stage('Trigger testing branch') {
+      steps {
+        build(job: 'testing', parameters: [string(name: 'image_name', value: "mateocolombo/pokeapp"), string(name: 'tag_image', value:"${params.tag_image}")])
+      }
+    }
   }
+  
   tools {
     nodejs 'NodeJS'
     dockerTool 'Docker1'
@@ -36,12 +41,7 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
   }
-  post {
-    success {
-      build job: 'testing', parameters: [string(name: 'tag_image', value:"${params.tag_image}")]
-    }
 
-  }
   parameters {
     string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
     string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
