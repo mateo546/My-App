@@ -36,9 +36,11 @@ pipeline {
     
     stage('Azure App Service deploy') {
       steps {
+        script {
+          def appSettingsJson = readFile 'appsettings.json'
+        }
          withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
            sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'  
-           def appSettingsJson = readFile 'appsettings.json'
            sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:${params.tag_image} --settings '${appSettingsJson}'"
          }
       }
