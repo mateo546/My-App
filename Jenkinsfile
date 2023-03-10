@@ -41,6 +41,7 @@ pipeline {
            script {
              def appSettingsJson = readFile 'appsettings.json'
              sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:${params.tag_image} --settings '${appSettingsJson}'"
+           }
          }
       }
     }
