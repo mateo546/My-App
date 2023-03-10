@@ -40,7 +40,8 @@ pipeline {
            sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
            script {
              def appSettingsJson = readFile 'appsettings.json'
-             sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:${params.tag_image} --settings '${appSettingsJson}'"
+             sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-DEV -p Plan-SociusRGLABRGModeloDevOpsDockerDev  -n sociuswebapptest011 -i mateocolombo/pokeapp:${params.tag_image}"
+             sh "az webapp config appsettings set --name sociuswebapptest011 --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-DEV --settings '${appSettingsJson}'"
            }
          }
       }
