@@ -50,4 +50,5 @@ pipeline {
             build job: 'master', parameters: [string(name: 'tag_image', value:"${params.tag_image}")]
         }
   }
+  }
 }
