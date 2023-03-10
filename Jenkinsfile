@@ -26,12 +26,12 @@ pipeline {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
            script {
              def appSettingsJson = readFile 'appsettings.json'
-          sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest005p -i mateocolombo/pokeapp:${params.tag_image}"
+             sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest005p -i mateocolombo/pokeapp:${params.tag_image}"
+             sh "az webapp config appsettings set --name sociuswebapptest011 --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --settings '${appSettingsJson}'"
+           }
         }
-
       }
     }
-
     stage('Manual Intervention') {
       steps {
         input(message: 'Confirm Pokeapp deploy to production?', ok: 'Yes. do it')
