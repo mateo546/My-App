@@ -24,14 +24,12 @@ pipeline {
       steps {
         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
-           script {
-             def enviroment = readFile 'enviroment.prod.ts'
-             sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest005p -i mateocolombo/pokeapp:${params.tag_image}"
-             sh "az webapp config appsettings set --name sociuswebapptest005p --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --settings '${enviroment.prod.ts}'"
-           }
+          sh "az webapp create -g SOCIUSRGLAB-RG-MODELODEVOPS-PROD -p Plan-SociusRGLABRGModeloDevOpsDockerProd  -n sociuswebapptest005p -i mateocolombo/pokeapp:${params.tag_image}"
+          sh "az webapp config appsettings set --name sociuswebapptest005p --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --settings 'MyVariable:PokeApp'"
         }
       }
     }
+    
     stage('Manual Intervention') {
       steps {
         input(message: 'Confirm Pokeapp deploy to production?', ok: 'Yes. do it')
