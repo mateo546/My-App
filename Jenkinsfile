@@ -49,3 +49,4 @@ pipeline {
     success {
       build(job: 'testing', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
     }
+  }
