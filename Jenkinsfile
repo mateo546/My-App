@@ -45,9 +45,10 @@ pipeline {
       }
     }
   }
-   post {
-        success {
-            build (job: 'testing', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
-        }
-   }
+  post {
+    success {
+      build(job: 'testing', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
+    }
+  }
 }
+
