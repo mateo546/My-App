@@ -52,7 +52,7 @@ pipeline {
   }
   post {
     success {
-      build(job: 'Deploy', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
+      build(job: 'My-App-Deploy', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
     }
 
   }
