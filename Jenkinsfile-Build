@@ -1,0 +1,65 @@
+pipeline {
+  agent any
+  stages {
+    stage('install') {
+      steps {
+        git(branch: 'master', url: 'https://github.com/mateo546/My-App.git')
+        sh 'npm install'
+      }
+    }
+
+    stage('Configure App Settings') {
+      steps {
+        withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
+          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
+          script {      
+            def url = 'https://sociuswebapptest011.azurewebsites.net'
+            def MyVariable = sh(returnStdout: true, script: "az webapp config appsettings list --name sociuswebapptest011 --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-DEV --query \"[?name=='MyVariable'].value\" --output tsv").trim()
+            sh "echo ${MyVariable}"
+            sh 'sed -i "s/MyVariable: .*/MyVariable: \'$MyVariable\'/g" src/environments/environment.prod.ts'
+          }
+        }
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
+      }
+    }
+
+    stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_MxjKQobzyCYEwyBEeeONWao_psU'
+      }
+    }
+
+    stage('Push') {
+      steps {
+        sh "docker tag ${image_name}:${tag_image} mateocolombo/pokeapp:${tag_image}"
+        sh "docker push mateocolombo/pokeapp:${tag_image}"
+        sh "docker rmi ${image_name}:${tag_image}"
+      }
+    }
+
+  }
+  tools {
+    nodejs 'NodeJS'
+    dockerTool 'Docker1'
+  }
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
+  }
+  post {
+    success {
+      build(job: 'testing', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
+    }
+
+  }
+  parameters {
+    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
+    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
+  }
+}
