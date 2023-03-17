@@ -22,18 +22,6 @@ pipeline {
       }
     }
     
-    stage('Login') {
-      steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_MxjKQobzyCYEwyBEeeONWao_psU'
-      }
-    }
-    
-    stage('Image Pull') {
-      steps {
-        sh "docker pull  mateocolombo/pokeapp:${params.tag_image}"
-      }
-    }
-    
     stage('Azure App Service deploy') {
       steps {
          withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal')]) {
