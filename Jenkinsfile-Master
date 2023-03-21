@@ -43,11 +43,8 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
-  }
-  parameters {
-    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
-    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagene docker.')
-    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
-    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor.')
+    AZURE_PLAN = "${MY-APP-PROD-PLAN}"
+    AZURE_NAME = "${MY-APP-PROD-NAME}"
+    AZURE_GROUP = "${MY-APP-PROD-GROUP}"
   }
 }
