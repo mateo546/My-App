@@ -45,6 +45,6 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
     AZURE_PLAN = "${MY-APP-PROD-PLAN}"
     AZURE_NAME = "${MY-APP-PROD-NAME}"
-    AZURE_GROUP = "${MY-APP-PROD-GROUP}"
+    AZURE_MODEL = "${MY-APP-PROD-GROUP}"
   }
 }
