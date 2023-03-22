@@ -8,30 +8,37 @@ pipeline {
       }
     }
 
+    stage('Configure App Settings') {
+      steps {
+        withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
+          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
+          script {      
+            def url = '${AZURE_APP_URL}'
+            def MyVariable = sh(returnStdout: true, script: "az webapp config appsettings list --name ${AZURE_NAME} --resource-group ${AZURE_MODEL} --query \"[?name=='MyVariable'].value\" --output tsv").trim()
+            sh "echo ${MyVariable}"
+            sh 'sed -i "s/MyVariable: .*/MyVariable: \'$MyVariable\'/g" src/environments/environment.prod.ts'
+          }
+        }
+      }
+    }
+
+    stage('build') {
+      steps {
+        sh "docker build -t ${image_name}:${tag_image} --file dockerfile ."
+      }
+    }
+
     stage('Login') {
       steps {
         sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password dckr_pat_MxjKQobzyCYEwyBEeeONWao_psU'
       }
     }
 
-    stage('Image Pull') {
+    stage('Push') {
       steps {
-        sh "docker pull  mateocolombo/pokeapp:${params.tag_image}"
-      }
-    }
-
-    stage('Azure App Service deploy') {
-      steps {
-        withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
-          sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
-          sh "az webapp create -g ${AZURE_MODEL} -p ${AZURE_PLAN} -n ${AZURE_NAME} -i mateocolombo/pokeapp:${params.tag_image}"
-        }
-      }
-    }
-    
-    stage('Manual Intervention') {
-      steps {
-        input(message: 'Confirm Pokeapp deploy to production?', ok: 'Yes. do it')
+        sh "docker tag ${image_name}:${tag_image} mateocolombo/pokeapp:${tag_image}"
+        sh "docker push mateocolombo/pokeapp:${tag_image}"
+        sh "docker rmi ${image_name}:${tag_image}"
       }
     }
 
@@ -43,7 +50,20 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
     AZURE_MODEL = "${env.MY_APP_DEV_RG}"
-    AZURE_PLAN = "${env.MY_APP_DEV_PLAN}"
     AZURE_NAME = "${env.MY_APP_DEV_NAME}"
+    AZURE_APP_URL = "${env.MY_APP_DEV_URL}"
+    
+  }
+  post {
+    success {
+      build(job: 'My-App-Deploy/develop', parameters: [string(name: 'tag_image', value:"${params.tag_image}")])
+    }
+
+  }
+  parameters {
+    string(name: 'container_name', defaultValue: 'pokeapp_web', description: 'Nombre del contenedor de docker.')
+    string(name: 'image_name', defaultValue: 'pokeapp', description: 'Nombre de la imagen de docker.')
+    string(name: 'tag_image', defaultValue: 'lts', description: 'Tag de la imagen de la página.')
+    string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
 }
