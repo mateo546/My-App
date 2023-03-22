@@ -31,7 +31,7 @@ pipeline {
     
     stage('Manual Intervention') {
       steps {
-        input(message: 'Confirm Pokeapp deploy to production?', ok: 'Yes. do it')
+        input(message: 'Confirm Pokeapp deploy to develop?', ok: 'Yes. do it')
       }
     }
 
