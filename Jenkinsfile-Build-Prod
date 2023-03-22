@@ -13,8 +13,8 @@ pipeline {
         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           script {      
-            def url = 'https://sociuswebapptest005p.azurewebsites.net'
-            def MyVariable = sh(returnStdout: true, script: "az webapp config appsettings list --name sociuswebapptest005p --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-PROD --query \"[?name=='MyVariable'].value\" --output tsv").trim()
+            def url = '${env.MY_APP_PROD_URL}'
+            def MyVariable = sh(returnStdout: true, script: "az webapp config appsettings list --name ${env.MY_APP_PROD_NAME} --resource-group ${env.MY_APP_PROD_RG} --query \"[?name=='MyVariable'].value\" --output tsv").trim()
             sh "echo ${MyVariable}"
             sh 'sed -i "s/MyVariable: .*/MyVariable: \'$MyVariable\'/g" src/environments/environment.prod.ts'
           }
@@ -50,7 +50,6 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
     AZURE_MODEL = "${env.MY_APP_PROD_RG}"
-    AZURE_PLAN = "${env.MY_APP_PROD_PLAN}"
     AZURE_NAME = "${env.MY_APP_PROD_NAME}"
     AZURE_APP_URL = "${env.MY_APP_PROD_URL}"
     
