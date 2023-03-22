@@ -49,6 +49,11 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
+    AZURE_MODEL = "${env.MY_APP_PROD_RG}"
+    AZURE_PLAN = "${env.MY_APP_PROD_PLAN}"
+    AZURE_NAME = "${env.MY_APP_PROD_NAME}"
+    AZURE_APP_URL = "${env.MY_APP_PROD_URL}"
+    
   }
   post {
     success {
