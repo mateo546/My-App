@@ -49,7 +49,7 @@ pipeline {
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('mateocolombo-dockerhub')
-    AZURE_MODEL = "env.MY_APP_RG_'${env.BRANCH_NAME}'"
+    AZURE_MODEL = "{env.MY_APP_RG_'${env.BRANCH_NAME}}'"
     AZURE_NAME = "env.MY_APP_NAME_'${env.BRANCH_NAME}'"
     AZURE_APP_URL = "env.MY_APP_URL_'${env.BRANCH_NAME}'"
     
