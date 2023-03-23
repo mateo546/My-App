@@ -1,4 +1,4 @@
-pipeline {
+¿pipeline {
   agent any
   stages {
     stage('install') {
@@ -67,3 +67,4 @@ pipeline {
     string(name: 'container_port', defaultValue: '80', description: 'Puerto que usa el contenedor')
   }
 }
+
