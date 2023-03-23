@@ -14,7 +14,7 @@ pipeline {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           script {      
             def url = '${env[env.AZURE_APP_URL]}'
-            def MyVariable = sh(returnStdout: true, script: "az webapp config appsettings list --name ${env[AZURE_NAME]} --resource-group ${env[AZURE_MODEL]} --query \"[?name=='MyVariable'].value\" --output tsv").trim()
+            def MyVariable = sh(returnStdout: true, script: "az webapp config appsettings list --name ${env[env.AZURE_NAME]} --resource-group ${env[env.AZURE_MODEL]} --query \"[?name=='MyVariable'].value\" --output tsv").trim()
             sh "echo ${MyVariable}"
             sh 'sed -i "s/MyVariable: .*/MyVariable: \'$MyVariable\'/g" src/environments/environment.prod.ts'
           }
