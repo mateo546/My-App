@@ -22,7 +22,7 @@ pipeline {
 
     stage('Azure App Service deploy') {
       steps {
-        withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
+        withCredentials(bindings: [azureServicePrincipal("{env[env.SERVICE]}")]) {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           sh "az webapp create -g ${env[env.AZURE_MODEL} -p ${env[env.AZURE_PLAN]} -n ${env[env.AZURE_NAME]} -i mateocolombo/pokeapp:${params.tag_image}"
         }
@@ -45,5 +45,6 @@ pipeline {
     AZURE_MODEL = "MY_APP_RG_$BRANCH_NAME"
     AZURE_NAME = "MY_APP_NAME_$BRANCH_NAME"
     AZURE_APP_URL = "MY_APP_URL_$BRANCH_NAME"
+    SERVICE = "SERVICE_$BRANCH_NAME"
   }
 }
