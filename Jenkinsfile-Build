@@ -10,7 +10,7 @@ pipeline {
 
     stage('Configure App Settings') {
       steps {
-        withCredentials(bindings: [azureServicePrincipal("{env[env.MY_APP_SERVICE]}")]) {
+        withCredentials(bindings: [azureServicePrincipal("{env[env.SERVICE]}")]) {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           script {      
             def url = '${env[env.AZURE_APP_URL]}'
