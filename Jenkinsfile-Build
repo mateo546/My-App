@@ -10,7 +10,7 @@ pipeline {
 
     stage('Configure App Settings') {
       steps {
-        withCredentials(bindings: [azureServicePrincipal("{env[env.SERVICE]}")]) {
+        withCredentials(bindings: [azureServicePrincipal("{env[env.MY_APP_SERVICE]}")]) {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           script {      
             def url = '${env[env.AZURE_APP_URL]}'
@@ -52,7 +52,7 @@ pipeline {
     AZURE_MODEL = "MY_APP_RG_$BRANCH_NAME"
     AZURE_NAME = "MY_APP_NAME_$BRANCH_NAME"
     AZURE_APP_URL = "MY_APP_URL_$BRANCH_NAME"
-     SERVICE = "SERVICE_$BRANCH_NAME"
+     SERVICE = "MY_APP_SERVICE_$BRANCH_NAME"
     
   }
   post {
