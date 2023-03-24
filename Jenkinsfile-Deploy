@@ -24,7 +24,7 @@ pipeline {
       steps {
         withCredentials(bindings: [azureServicePrincipal('Azure-Service-Principal-Prod')]) {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
-          sh "az webapp create -g ${AZURE_MODEL} -p ${AZURE_PLAN} -n ${AZURE_NAME} -i mateocolombo/pokeapp:${params.tag_image}"
+          sh "az webapp create -g ${env[env.AZURE_MODEL} -p ${env[env.AZURE_PLAN]} -n ${env[env.AZURE_NAME]} -i mateocolombo/pokeapp:${params.tag_image}"
         }
       }
     }
