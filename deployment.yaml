@@ -6,17 +6,17 @@ spec:
   replicas: 2
   selector: 
     matchLabels: 
-      app: PokeApp
+      app: pokeapp
   template: 
     metadata: 
       labels: 
-        app: PokeApp 
+        app: pokeapp 
     spec: 
       containers: 
-      - name: pokeapp1 
+      - name: pokeapp 
         image:  mateocolombo/pokeapp:1.1.2
         ports: 
-        - containerPort: 80
+        - containerPort: 4402
 --- 
 apiVersion: v1 
 kind: Service 
@@ -24,9 +24,9 @@ metadata:
   name: pokeapp-service
 spec: 
   ports: 
-    - port: 8080 
-      targetPort: 80 
+      port: 80
+      targetPort: 4402 
       nodePort: 30002
   selector: 
-    app: PokeApp
+    app: pokeapp
   type: LoadBalancer 
