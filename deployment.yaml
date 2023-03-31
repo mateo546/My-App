@@ -13,7 +13,7 @@ spec:
         app: PokeApp 
     spec: 
       containers: 
-      - name: pokeapp 
+      - name: pokeapp-container 
         image:  mateocolombo/pokeapp:1.1.2
         ports: 
         - containerPort: 4402
