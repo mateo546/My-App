@@ -28,5 +28,5 @@ spec:
       targetPort: 4402 
       nodePort: 30002
   selector: 
-    app: pokeapp
+    app: PokeApp
   type: LoadBalancer 
