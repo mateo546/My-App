@@ -5,11 +5,11 @@ metadata:
 spec: 
   selector: 
     matchLabels: 
-      app: pokeapp1
+      app: PokeApp
   template: 
     metadata: 
       labels: 
-        app: pokeapp1 
+        app: PokeAapp 
     spec: 
       containers: 
       - name: pokeapp1 
@@ -20,12 +20,12 @@ spec:
 apiVersion: v1 
 kind: Service 
 metadata: 
-  name: pokeapp1
+  name: pokeapp-service
 spec: 
   ports: 
     - port: 80 
       targetPort: 9898 
       nodePort: 30001 
   selector: 
-    app: pokeapp1 
+    app: PokeApp
   type: LoadBalancer 
