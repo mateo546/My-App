@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    
+    environment {
+        KUBECONFIG = "/path/to/deployment.yaml"
+    }
+    
+    stages {
+        stage('Desploy') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'Kubernetes-credentials', usernameVariable: 'KUBE_USER', passwordVariable: 'KUBE_PASS')]) {
+                    sh "kubectl config set-credentials user --username=\$KUBE_USER --password=\$KUBE_PASS"
+                    sh "kubectl config set-context cluster --user=user"
+                    sh "kubectl apply -f /path/to/deployment.yaml"
+                }
+            }
+        }
+    }
+    
+    post {
+        always {
+            sh "kubectl rollout status deployment/My-App"
+        }
+    }
+}
