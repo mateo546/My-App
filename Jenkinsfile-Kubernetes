@@ -33,7 +33,15 @@ pipeline {
     nodejs 'NodeJS'
     dockerTool 'Docker1'
   }
+  post {
+      always {
+          sh "kubectl rollout status deployment/My-App"
+      }
+    }
+  }
+          
   environment {
     KUBECONFIG = "/path/to/deployment.yaml" 
   }
 }  
+
