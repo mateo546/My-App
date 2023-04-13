@@ -36,4 +36,8 @@ pipeline {
   environment {
     KUBECONFIG = "/path/to/deployment.yaml" 
   }
+  post {
+      always {
+          sh "kubectl rollout status deployment/My-App"
+        } 
 }
