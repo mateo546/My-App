@@ -1,11 +1,5 @@
 pipeline {
   agent any
-  
-  environment {
-      KUBECONFIG = "/path/to/deployment.yaml"
-      KUBECONFIG_1 = "/path/to/namespace.yaml"
-  }
-  
   stages {
     stage('install') {
       steps {
@@ -28,6 +22,10 @@ pipeline {
       }
     }
   }
+
+  environment {
+    KUBECONFIG = "/path/to/deployment.yaml"
+  }
           
   post {
       always {
@@ -36,3 +34,4 @@ pipeline {
     }
   }
 }
+
