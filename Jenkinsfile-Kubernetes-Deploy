@@ -7,6 +7,14 @@ pipeline {
     }
     
     stages {
+       stages {
+      stage('install') {
+        steps {
+          git(branch: 'master', url: 'https://github.com/mateo546/My-App.git')
+          sh 'npm install'
+        }
+      }
+    
       stage('Deploy') {
         steps {
           withCredentials(bindings: [azureServicePrincipal("azure-service-principal")]) {
