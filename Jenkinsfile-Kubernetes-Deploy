@@ -23,6 +23,11 @@ pipeline {
     }
   }
 
+  tools {
+    nodejs 'NodeJS'
+    dockerTool 'Docker1'
+  }
+
   environment {
     KUBECONFIG = "/path/to/deployment.yaml"
   }
