@@ -35,7 +35,5 @@ pipeline {
   post {
       always {
           sh "kubectl rollout status deployment/My-App"
-      }
-    }
-  }
+          }
 }
