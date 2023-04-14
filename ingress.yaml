@@ -13,5 +13,6 @@ spec:
                 name: podinfo 
                 port: 
                   number: 80 
+                  targetPort: 4402
             path: / 
             pathType: Prefix 
