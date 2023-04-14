@@ -10,8 +10,8 @@ spec:
         paths: 
           - backend: 
               service: 
-                name: pokeapp-service 
+                name: pokeapp-service
                 port: 
-                  number: 80 
+                  number: 8080 
             path: / 
             pathType: Prefix 
