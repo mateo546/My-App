@@ -27,7 +27,6 @@ spec:
     - protocol: TCP 
       port: 80
       targetPort: 4402 
-      nodePort: 30002
   selector: 
     app: PokeApp
   type: LoadBalancer 
