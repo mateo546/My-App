@@ -23,7 +23,8 @@ kind: Service
 metadata: 
   name: pokeapp-service
 spec: 
-  ports:  
+  ports: 
+    - protocol: TCP
       port: 8080
       targetPort: 4402 
   selector: 
