@@ -24,6 +24,7 @@ metadata:
   name: pokeapp-service
 spec: 
   ports: 
+    - protocol: TCP 
       port: 80
       targetPort: 4402 
       nodePort: 30002
