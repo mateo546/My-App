@@ -30,3 +30,4 @@ spec:
   selector: 
     app: PokeApp
   type: LoadBalancer 
+  validate=false
