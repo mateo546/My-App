@@ -15,7 +15,7 @@ pipeline {
           //el comando a continuacion se conecta a azure y descarga las credenciales necesarias para acceder al clúster de Kubernetes.
           sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS" 
           //con las credenciales extraidas de azure y ya conectado al cluster, se aplica el manifiesto.
-           sh "kubectl apply -f ingress.yaml"
+          sh "kubectl apply -f ingress.yaml -n mateo-pokeapp-dev"
           sh "kubectl apply -f namespace.yaml"
           sh "kubectl apply -f deployment.yaml -n mateo-pokeapp-dev"
           //Posibles futuros archivos de ingress, testeo(locust) o metricas(prometheus)
