@@ -44,8 +44,7 @@ pipeline {
     dockerTool 'Docker1'
   }        
   environment {
-    KUBECONFIG1 = "/path/to/deployment.yaml"
-    KUBECONFIG = "/path/to/namespace.yaml" 
+    KUBECONFIG = "/path/to/My-App/namespace.yaml" 
   }
 }  
 
