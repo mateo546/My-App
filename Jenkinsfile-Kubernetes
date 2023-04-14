@@ -11,8 +11,8 @@ pipeline {
     stage('Instalar kubectl') {
       steps {
         // Ejecutar el comando de instalación de kubectl en el servidor Jenkins utilizando "sh"
-        sh 'sudo apt update'
-        sh 'sudo apt install -y kubectl'
+        sh 'apt update'
+        sh 'apt install -y kubectl'
       }    
     }
 
