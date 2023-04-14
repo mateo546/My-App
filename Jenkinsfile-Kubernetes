@@ -5,7 +5,6 @@ pipeline {
       steps {
         git(branch: 'master', url: 'https://github.com/mateo546/My-App.git')
         sh 'npm install'
-        sh "git clone https://github.com/mateo546/My-App.git"
       }
     }
     
