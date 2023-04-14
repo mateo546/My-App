@@ -14,8 +14,8 @@ pipeline {
         sh 'dpkg --configure -a'
         sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -'
         sh 'echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list'
-        sh 'apt update'
-        sh 'apt install -y kubectl'
+        sh 'sudo apt update'
+        sh 'sudo apt install -y kubectl'
       }    
     }
 
