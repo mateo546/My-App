@@ -14,8 +14,8 @@ pipeline {
         sh 'dpkg --configure -a'
         sh 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -'
         sh 'echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list'
-        sh 'sudo apt update'
-        sh 'sudo apt install -y kubectl'
+        sh 'apt update'
+        sh 'apt install -y kubectl'
       }    
     }
 
@@ -27,7 +27,7 @@ pipeline {
           sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS" 
           //con las credenciales extraidas de azure y ya conectado al cluster, se aplica el manifiesto.
           sh "kubectl apply -f deployment.yaml"
-          sh "kubectl apply -f deployment.yaml --validate=false -n mateo-pokeapp-dev"
+          sh "kubectl apply --validate=false -f deployment.yaml -n mateo-pokeapp-dev"
           //Posibles futuros archivos de ingress, testeo(locust) o metricas(prometheus)
         }
       }
