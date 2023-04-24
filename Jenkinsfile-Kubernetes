@@ -14,7 +14,7 @@ pipeline {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           //el comando a continuacion se conecta a azure y descarga las credenciales necesarias para acceder al clúster de Kubernetes.
           sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS" 
-          sh 'openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout tls.key -out tls.crt -subj "/CN=mateo.modelodevops.sociuschile.cl" -n mateo-pokeapp-dev'
+          sh 'openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout tls.key -out tls.crt -subj "/CN=mateo.modelodevops.sociuschile.cl"'
           sh "kubectl create secret tls mateo-ingress-tls --key tls.key --cert tls.crt -n mateo-pokeapp-dev"
           //con las credenciales extraidas de azure y ya conectado al cluster, se aplica el manifiesto.
           sh "kubectl apply -f ingress.yaml -n mateo-pokeapp-dev"
