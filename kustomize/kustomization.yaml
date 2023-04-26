@@ -3,13 +3,6 @@ kind: Kustomization
 
 namespace: mateo-pokeapp-dev
 
-secretGenerator:
-- name: mateo-ingress-tls
-  type: kubernetes.io/tls
-  files:
-  - tls.key
-  - tls.crt
-
 resources:
 - ingress.yaml
 - namespace.yaml
