@@ -16,6 +16,7 @@ pipeline {
           sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS" 
           sh 'openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout tls.key -out tls.crt -subj "/CN=mateo.modelodevops.sociuschile.cl"'
           sh "kubectl apply -k kustomize"
+          sh "kubectl apply secret tls mateo-ingress-tls --key tls.key --cert tls.crt"
         }
       }
     }
