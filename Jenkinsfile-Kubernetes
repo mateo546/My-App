@@ -15,7 +15,7 @@ pipeline {
           //el comando a continuacion se conecta a azure y descarga las credenciales necesarias para acceder al clúster de Kubernetes.
           sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS" 
           sh 'openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout tls.key -out tls.crt -subj "/CN=mateo.modelodevops.sociuschile.cl"'
-          sh "kubectl apply -k kustomize.yaml"
+          sh "kubectl apply -k kustomize"
         }
       }
     }
