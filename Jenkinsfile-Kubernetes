@@ -17,7 +17,7 @@ pipeline {
           echo "${pokeapp_key}"
           sh "sed -i 's|${POKEAPP_KEY}|${pokeapp_key}|g' kustomize/secret.yaml"
           sh "sed -i 's|${POKEAPP_CRT}|${pokeapp_crt}|g' kustomize/secret.yaml"
-          sh "kubectl apply -f secret.yaml
+          sh "kubectl apply -f secret.yaml"
           sh "kubectl apply -k kustomize"
         }
       }
