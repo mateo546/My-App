@@ -16,7 +16,7 @@ pipeline {
           sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS" 
           echo "${pokeapp_key}"
           sh "sed -i 's|${pokeapp_key}|${pokeapp_key}|g' kustomize/secret.yaml"
-          sh "sed -i 's|${pokeapp_crt}|${pokeapp_crt}|g' kustomize/secret.yaml"
+          sh "sed -i 's|${pokeapp_crt}|'${pokeapp_crt}'|g' kustomize/secret.yaml"
           sh "kubectl apply -k kustomize"
         }
       }
