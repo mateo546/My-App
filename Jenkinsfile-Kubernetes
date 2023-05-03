@@ -14,9 +14,9 @@ pipeline {
           sh 'az login --service-principal -u ${AZURE_CLIENT_ID} -p ${AZURE_CLIENT_SECRET} --tenant ${AZURE_TENANT_ID}'
           //el comando a continuacion se conecta a azure y descarga las credenciales necesarias para acceder al clúster de Kubernetes.
           sh "az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS" 
-          echo "${pokeapp_key}"
-          sh "sed -i 's|${pokeapp_key}|${pokeapp_key}|g' kustomize/secret.yaml"
-          sh "sed -i 's|\\\\hola|${pokeapp_crt}|g' kustomize/secret.yaml --debug"
+          //secret_pokeapp_key= $(echo "${pokeapp_key}")
+          sh "sed -i 's|_pokeapp_key_|${pokeapp_key}|g' kustomize/secret.yaml --debug"
+          sh "sed -i 's|_pokeapp_crt_|${pokeapp_crt}|g' kustomize/secret.yaml --debug"
           sh "kubectl apply -k kustomize"
         }
       }
