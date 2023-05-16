@@ -6,7 +6,6 @@ on:
 jobs:
   build-the-image:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
