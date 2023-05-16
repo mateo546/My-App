@@ -1,0 +1,37 @@
+name: Deploy-Kubernetes
+on:
+  push:
+    branches: [develop]
+
+jobs:
+  build-the-image:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      
+      - name: Install Dependencies
+        run: npm install
+
+       - name: Azure Login
+        run: |
+          az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+      
+      - name: AKS Get Credentials
+        run: |
+          az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS
+        
+      - name: Update Kubernetes Secrets
+        run: |
+          sed -i "s/_pokeapp_key_/${{ secrets.pokeapp_key }}/g" kustomize/secret.yaml
+          sed -i "s/_pokeapp_crt_/${{ secrets.pokeapp_crt }}/g" kustomize/secret.yaml
+
+      - name: Apply Kubernetes Manifests
+        run: kubectl apply -k kustomize
+
