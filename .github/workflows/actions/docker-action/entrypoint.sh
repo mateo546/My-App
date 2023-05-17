@@ -1,0 +1,1 @@
+echo "¡Hola desde el contenedor Docker!"
