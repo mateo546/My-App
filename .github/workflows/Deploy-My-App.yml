@@ -23,7 +23,7 @@ jobs:
         run: docker build -t ${{ env.image_name }}:${{ env.tag_image }} --file dockerfile .
 
       - name: Login to DockerHub
-        run: echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin
+        run: docker login -u ${{ secrets.DOCKERHUB_USER }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Push Docker Image
         run: |
