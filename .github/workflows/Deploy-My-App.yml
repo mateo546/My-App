@@ -4,7 +4,7 @@ on:
     branches: [develop]
 
 jobs:
-  build-and-push:
+  Build-And-Push:
     runs-on: ubuntu-latest
     env:
       container_name: pokeapp_web
@@ -31,8 +31,9 @@ jobs:
           docker push mateocolombo/pokeapp:${{ env.tag_image }}
           docker rmi ${{ env.image_name }}:${{ env.tag_image }}
 
-  build-the-image:
+  Push-To-Kubernetes:
     runs-on: ubuntu-latest
+    needs: ["Build-And-Push"]
     env:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}    
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
