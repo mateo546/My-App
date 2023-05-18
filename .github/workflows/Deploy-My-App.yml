@@ -63,8 +63,8 @@ jobs:
         run: |
           kubectl config set-cluster ModeloDevops-AKS-Reader --server=https://modelodevops-aks-dns-b137e13a.hcp.westeurope.azmk8s.io
           kubectl config set-context ModeloDevops-AKS-Reader --cluster=ModeloDevops-AKS-Reader --namespace=mateo-pokeapp-dev
-          kubectl config set-credentials  ${{ secrets.CLUSTER_USERNAME }}  --token= ${{ secrets.CLUSTER_TOKEN }} 
-          kubectl config set-context ModeloDevops-AKS-Reader --user=${{ secrets.CLUSTER_USERNAME }} 
+          kubectl config set-credentials mateo --token=${{ secrets.CLUSTER_TOKEN }} 
+          kubectl config set-context ModeloDevops-AKS-Reader --user=mateo
           kubectl config get-contexts
 
       - name: AKS Get Credentials
