@@ -2,6 +2,6 @@ name: Hola Mundo
 author: Mateo Colombo
 description: Aca va la descripcion que yo quiera
 
-runs:
-  using: "docker"
-  image: "dockerfile"
+run:
+  using: "shell"
+  command: echo "¡Hola desde el archivo action.yml!"
