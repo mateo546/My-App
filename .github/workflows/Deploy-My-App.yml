@@ -37,7 +37,7 @@ jobs:
         run: |
           docker tag ${{ env.image_name }}:${{ env.tag_image }} mateocolombo/pokeapp:${{ env.tag_image }}
           docker push mateocolombo/pokeapp:${{ env.tag_image }}
-          docker rmi ${{ env.image_name }}:${{ env.tag_image }}
+         # docker rmi ${{ env.image_name }}:${{ env.tag_image }}
 
   Push-To-Kubernetes:
     runs-on: ubuntu-latest
@@ -61,8 +61,12 @@ jobs:
 
       - name: Azure Login
         run: |
-          az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
-      
+          kubectl config set-cluster ModeloDevops-AKS-Reader --server=https://modelodevops-aks-dns-b137e13a.hcp.westeurope.azmk8s.io
+          kubectl config set-context ModeloDevops-AKS-Reader --cluster=ModeloDevops-AKS-Reader --namespace=mateo-pokeapp-dev
+          kubectl config set-credentials  ${{ secrets.CLUSTER_USERNAME }}  --token= ${{ secrets.CLUSTER_TOKEN }} 
+          kubectl config set-context ModeloDevops-AKS-Reader --user=${{ secrets.CLUSTER_USERNAME }} 
+          kubectl config get-contexts
+          
       - name: AKS Get Credentials
         run: |
           az aks get-credentials --resource-group SOCIUSRGLAB-RG-MODELODEVOPS-AKS --name ModeloDevOps-AKS

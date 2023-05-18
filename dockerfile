@@ -5,7 +5,11 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY package.json /app
+#COPY entrypoint.sh /entrypoint.sh
+#RUN chmod +x /entrypoint.sh
+#ENTRYPOINT [ "/entrypoint.sh"  ]
+
+COPY /package.json /app
 
 RUN npm install
 
@@ -14,10 +18,6 @@ COPY . /app
 RUN npm run build --prod
 
 FROM alpine:latest
-
-COPY ./.github/docker-action/entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT [ "./.github/docker-action/entrypoint.sh" ]
 
 #Segunda Etapa
 FROM nginx:1.17.1-alpine
