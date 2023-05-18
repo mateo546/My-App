@@ -13,7 +13,12 @@ COPY . /app
 
 RUN npm run build --prod
 
-ENTRYPOINT [ "/.github/workflows/actions/docker-action/entrypoint.sh" ]
+FROM alpine:latest
+
+COPY .github/workflows/actions/docker-action/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+
 
 #Segunda Etapa
 FROM nginx:1.17.1-alpine
