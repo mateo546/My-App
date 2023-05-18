@@ -15,9 +15,9 @@ RUN npm run build --prod
 
 FROM alpine:latest
 
-#COPY entrypoint.sh /entrypoint.sh
-#RUN chmod +x /entrypoint.sh
-#ENTRYPOINT [ "/entrypoint.sh" ]
+COPY ./.github/docker-action/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT [ "./.github/docker-action/entrypoint.sh" ]
 
 #Segunda Etapa
 FROM nginx:1.17.1-alpine

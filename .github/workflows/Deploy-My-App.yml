@@ -19,6 +19,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: use actions
+        uses: ./.github/docker-action
+
       - name: Build Docker Image
         run: docker build -t ${{ env.image_name }}:${{ env.tag_image }} --file dockerfile .
 
