@@ -3,5 +3,6 @@ author: Mateo Colombo
 description: Aca va la descripcion que yo quiera
 
 runs:
-  using: "shell"
-  command: echo "¡Hola desde el archivo action.yml!"
+  using: "docker"
+  image: "dockerfile"
+  #entrypoint: /entrypoint.sh
