@@ -4,5 +4,5 @@ description: Aca va la descripcion que yo quiera
 
 runs:
   using: "docker"
-  image: "Dockerfile"
+  image: "dockerfile"
   entrypoint: /entrypoint.sh
