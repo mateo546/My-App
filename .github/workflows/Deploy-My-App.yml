@@ -68,7 +68,7 @@ jobs:
           kubectl config set-credentials mateo --token=${{ secrets.CLUSTER_TOKEN }} 
           kubectl config set-context ModeloDevops-AKS-Reader --user=mateo
           kubectl config get-contexts
-          kubectl config use-context ModeloDevops-AKS-Reader --namespace
+          kubectl config use-context ModeloDevops-AKS-Reader
 
       - name: Update Kubernetes Secrets
         run: |
