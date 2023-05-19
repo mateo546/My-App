@@ -7,4 +7,3 @@ resources:
 - ingress.yaml
 - namespace.yaml
 - deployment.yaml
-#- secret.yaml
