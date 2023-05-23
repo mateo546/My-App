@@ -47,6 +47,8 @@ jobs:
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }} 
       CLUSTER_TOKEN: ${{ secrets.CLUSTER_TOKEN }}
+      POKEAPP_KEY: ${{ secrets.POKEAPP_KEY }}
+      POKEAPP_CRT : ${{ secrets.POKEAPP_CRT }}
 
     steps:
       - name: Checkout Repository
@@ -70,10 +72,10 @@ jobs:
           kubectl config use-context ModeloDevops-AKS-Admin
           kubectl apply -k kustomize
 
-      #- name: Update Kubernetes Secrets
-      #  run: |
-      #    sed -i 's|_pokeapp_key_|${{ secrets.POKEAPP_KEY }}|g' kustomize/secret.yaml --debug"
-      #    sed -i 's|_pokeapp_crt_|${{ secrets.POKEAPP_CRT }}|g' kustomize/secret.yaml --debug"
+      - name: Update Kubernetes Secrets
+        run: |
+          sed -i 's|_pokeapp_key_|${{ secrets.POKEAPP_KEY }}|g' kustomize/secret.yaml --debug"
+          sed -i 's|_pokeapp_crt_|${{ secrets.POKEAPP_CRT }}|g' kustomize/secret.yaml --debug"
 
     #  - name: Apply Kubernetes Manifests
      #   run: |
