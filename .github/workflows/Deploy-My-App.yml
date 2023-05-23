@@ -69,15 +69,16 @@ jobs:
           kubectl config set-context ModeloDevops-AKS-Reader --user=mateo
           kubectl config use-context ModeloDevops-AKS-Reader
           kubectl config get-contexts
+          kubectl apply -k kustomize
 
      # - name: Update Kubernetes Secrets
         #run: |
          # sed -i "s/_pokeapp_key_/${{ secrets.pokeapp_key }}/g" kustomize/secret.yaml
          # sed -i "s/_pokeapp_crt_/${{ secrets.pokeapp_crt }}/g" kustomize/secret.yaml
 
-      - name: Apply Kubernetes Manifests
-        run: |
+    #  - name: Apply Kubernetes Manifests
+     #   run: |
           
-          kubectl apply -k kustomize
+         # kubectl apply -k kustomize
          
 
