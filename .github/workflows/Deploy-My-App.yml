@@ -69,12 +69,14 @@ jobs:
           kubectl config get-contexts
           kubectl config use-context ModeloDevops-AKS-Reader
 
-      - name: Update Kubernetes Secrets
-        run: |
-          sed -i "s/_pokeapp_key_/${{ secrets.pokeapp_key }}/g" kustomize/secret.yaml
-          sed -i "s/_pokeapp_crt_/${{ secrets.pokeapp_crt }}/g" kustomize/secret.yaml
+      - #name: Update Kubernetes Secrets
+        #run: |
+         # sed -i "s/_pokeapp_key_/${{ secrets.pokeapp_key }}/g" kustomize/secret.yaml
+         # sed -i "s/_pokeapp_crt_/${{ secrets.pokeapp_crt }}/g" kustomize/secret.yaml
 
       - name: Apply Kubernetes Manifests
-        run: kubectl apply -k kustomize
-
+        run: |
+          openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out cert.pem -config cert.cfg
+          kubectl apply -k kustomize
+         
 
