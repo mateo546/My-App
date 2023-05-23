@@ -70,10 +70,10 @@ jobs:
           kubectl config use-context ModeloDevops-AKS-Admin
           kubectl apply -k kustomize
 
-      - name: Update Kubernetes Secrets
-        run: |
-          sed -i 's|_pokeapp_key_|${{ secrets.POKEAPP_KEY }}|g' kustomize/secret.yaml --debug"
-          sed -i 's|_pokeapp_crt_|${{ secrets.POKEAPP_CRT }}|g' kustomize/secret.yaml --debug"
+      #- name: Update Kubernetes Secrets
+      #  run: |
+      #    sed -i 's|_pokeapp_key_|${{ secrets.POKEAPP_KEY }}|g' kustomize/secret.yaml --debug"
+      #    sed -i 's|_pokeapp_crt_|${{ secrets.POKEAPP_CRT }}|g' kustomize/secret.yaml --debug"
 
     #  - name: Apply Kubernetes Manifests
      #   run: |
