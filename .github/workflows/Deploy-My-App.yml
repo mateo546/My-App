@@ -46,9 +46,9 @@ jobs:
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}    
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }} 
-      CLUSTER_TOKEN: ${{ secrets.CLUSTER_TOKEN }}
+      #CLUSTER_TOKEN: ${{ secrets.CLUSTER_TOKEN }}
       POKEAPP_KEY: ${{ secrets.POKEAPP_KEY }}
-      POKEAPP_CRT : ${{ secrets.POKEAPP_CRT }}
+      POKEAPP_CRT: ${{ secrets.POKEAPP_CRT }}
 
     steps:
       - name: Checkout Repository
