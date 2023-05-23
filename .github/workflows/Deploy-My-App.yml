@@ -72,8 +72,8 @@ jobs:
 
       - name: Update Kubernetes Secrets
         run: |
-          sed -i "s/_pokeapp_key_/${{ secrets.pokeapp_key }}/g" kustomize/secret.yaml
-          sed -i "s/_pokeapp_crt_/${{ secrets.pokeapp_crt }}/g" kustomize/secret.yaml
+          sed -i 's|_pokeapp_key_|${{ secrets.pokeapp_key }}|g' kustomize/secret.yaml --debug"
+          sed -i 's|_pokeapp_crt_|${{ secrets.pokeapp_crt }}|g' kustomize/secret.yaml --debug"
 
     #  - name: Apply Kubernetes Manifests
      #   run: |
