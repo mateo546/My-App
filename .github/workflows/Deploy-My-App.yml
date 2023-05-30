@@ -62,10 +62,10 @@ jobs:
       - name: Install
         run: npm install
 
-      #- name: Update Kubernetes Secrets
-      #  run: |
-      #    sed -i 's|_pokeapp_key_|${{ secrets.POKEAPP_KEY }}|g' kustomize/secret.yaml --debug
-      #    sed -i 's|_pokeapp_crt_|${{ secrets.POKEAPP_CRT }}|g' kustomize/secret.yaml --debug  
+      - name: Update Kubernetes Secrets
+        run: |
+          sed -i 's|_pokeapp_key_|${{ secrets.POKEAPP_KEY }}|g' kustomize/secret.yaml --debug
+          sed -i 's|_pokeapp_crt_|${{ secrets.POKEAPP_CRT }}|g' kustomize/secret.yaml --debug  
 
       - name: Azure Login
         run: |
@@ -75,8 +75,6 @@ jobs:
           kubectl config set-credentials mateo --token=${{ secrets.CLUSTER_TOKEN }} 
           kubectl config set-context ModeloDevops-AKS-Admin --user=mateo
           kubectl config use-context ModeloDevops-AKS-Admin
-          kubectl delete secret mateo-ingress-tls
-          ls -l
           kubectl apply -k kustomize
          
 
