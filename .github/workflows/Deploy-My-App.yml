@@ -75,6 +75,7 @@ jobs:
           kubectl config set-credentials mateo --token=${{ secrets.CLUSTER_TOKEN }} 
           kubectl config set-context ModeloDevops-AKS-Admin --user=mateo
           kubectl config use-context ModeloDevops-AKS-Admin
+          kubectl delete secret mateo-ingress-tls
           ls -l
           kubectl apply -k kustomize
          
