@@ -75,7 +75,8 @@ jobs:
           kubectl config set-credentials mateo --token=${{ secrets.CLUSTER_TOKEN }} 
           kubectl config set-context ModeloDevops-AKS-Admin --user=mateo
           kubectl config use-context ModeloDevops-AKS-Admin
-          kubectl create secret tls mateo-ingress-tls --key mateo.tls.key --cert mateo.tls.crt
+          openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout mateo-ingress-tls.key -out mateo-ingress-tls.crt -subj "/CN=Mateo_Colombo"
+          kubectl create secret tls mateo-ingress-tls --key mateo-ingress-tls.key --cert mateo-ingress-tls.crt
           kubectl apply -k kustomize
          
 
