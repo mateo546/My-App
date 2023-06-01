@@ -36,7 +36,6 @@ jobs:
         run: |
           docker tag ${{ env.image_name }}:${{ env.tag_image }} mateocolombo/pokeapp:${{ env.tag_image }}
           docker push mateocolombo/pokeapp:${{ env.tag_image }}
-         # docker rmi ${{ env.image_name }}:${{ env.tag_image }}
 
   Push-To-Kubernetes:
     runs-on: ubuntu-latest
