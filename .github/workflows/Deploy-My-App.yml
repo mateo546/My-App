@@ -1,4 +1,4 @@
-name: Deploy-Kubernetes1
+name: Deploy-Kubernetes
 on:
   pull_request:
     branches: [master]
